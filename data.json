@@ -1,0 +1,23 @@
+[
+  {
+    "sid": "SW001",
+    "nombre": "Switch Core",
+    "ip": "192.168.1.1",
+    "protocolos": ["STP", "LLDP", "SNMP"],
+    "observaciones": "Ubicado en el centro de datos principal"
+  },
+  {
+    "sid": "RTR002",
+    "nombre": "Router Borde",
+    "ip": "10.0.0.1",
+    "protocolos": ["OSPF", "BGP"],
+    "observaciones": "Conectado a ISP"
+  },
+  {
+    "sid": "FW003",
+    "nombre": "Firewall Perimetral",
+    "ip": "172.16.0.1",
+    "protocolos": ["IPSec", "SSL", "NAT"],
+    "observaciones": "Protege la red interna"
+  }
+]

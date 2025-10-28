@@ -1,9 +1,25 @@
+# Se añade 'json'
 from flask import Flask, jsonify, render_template_string, request, redirect, url_for
+import json
 
 app = Flask(__name__)
 
-# Lista para almacenar los dispositivos
-dispositivos_registrados = []
+# --- NUEVA FUNCIÓN ---
+def cargar_datos_iniciales():
+    """Carga los dispositivos desde un archivo JSON."""
+    try:
+        with open('data.json', 'r', encoding='utf-8') as f:
+            return json.load(f)
+    except FileNotFoundError:
+        print("Advertencia: No se encontró data.json, iniciando con lista vacía.")
+        return []
+    except json.JSONDecodeError:
+        print("Error: data.json no es un JSON válido, iniciando con lista vacía.")
+        return []
+
+# Lista ahora se inicializa con los datos del JSON
+dispositivos_registrados = cargar_datos_iniciales()
+# --- FIN NUEVA FUNCIÓN ---
 
 @app.route('/formulario')
 def formulario():
@@ -26,7 +42,6 @@ def formulario():
 
 @app.route('/agregar', methods=['GET'])
 def agregar_dispositivo():
-    # CORRECCIÓN: Se cambió request.arjs por request.args 
     data = {
         "sid": request.args.get('sid'),
         "nombre": request.args.get('nombre'),
