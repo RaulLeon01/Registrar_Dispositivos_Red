@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Dispositivo</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <p><a href="{{ url_for('mostrar_dispositivos_web') }}">&larr; Volver a la lista</a></p>
+        
+        <h1>Editar Dispositivo: {{ device.sid }}</h1>
+        
+        <form action="{{ url_for('actualizar_dispositivo_web', sid=device.sid) }}" method="POST">
+            <p>
+                <label for="sid">SID (No editable):</label>
+                <input type="text" id="sid" name="sid" value="{{ device.sid }}" readonly>
+            </p>
+            <p>
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" value="{{ device.nombre }}">
+            </p>
+            <p>
+                <label for="ip">IP:</label>
+                <input type="text" id="ip" name="ip" value="{{ device.ip }}">
+            </p>
+            <p>
+                <label for="protocolos">Protocolos (separados por coma):</label>
+                <input type="text" id="protocolos" name="protocolos" value="{{ device.protocolos | join(', ') }}">
+            </p>
+            <p>
+                <label for="observaciones">Observaciones:</label>
+                <input type="text" id="observaciones" name="observaciones" value="{{ device.observaciones }}">
+            </p>
+            <p>
+                <input type="submit" value="Actualizar Dispositivo">
+            </p>
+        </form>
+    </div>
+</body>
+</html>

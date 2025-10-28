@@ -125,3 +125,46 @@ form input[type="text"] {
     border-top: 1px solid #f0f0f0;
     padding-top: 15px;
 }
+
+/* ... (CSS anterior) ... */
+
+/* Estilos para botones secundarios (editar, resetear) */
+.button-secondary {
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+.button-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Estilo para inputs de solo lectura */
+form input[readonly] {
+    background-color: #e9ecef;
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Ajuste para que los botones de acción se vean mejor */
+.device-card-actions {
+    margin-top: 15px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 15px;
+    display: flex; /* Añadido */
+    gap: 10px; /* Añadido */
+    align-items: center; /* Añadido */
+}
+/* Hacemos que el formulario de eliminar no ocupe espacio extra */
+.device-card-actions form {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    background: none;
+}

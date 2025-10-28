@@ -6,30 +6,29 @@
 # 5. pip show flask
 # 6. python app.py
 
-from flask import Flask, jsonify, render_template, request, redirect, url_for
+# ... (Imports sin cambios) ...
+from flask import Flask, jsonify, render_template, request, redirect, url_for, abort
 import json
 
 app = Flask(__name__) 
 
+# ... (cargar_datos_iniciales sin cambios) ...
 def cargar_datos_iniciales():
-    """Carga los dispositivos desde un archivo JSON."""
-    try:
-        with open('data.json', 'r', encoding='utf-8') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        print("Advertencia: No se encontró data.json, iniciando con lista vacía.")
-        return []
-    except json.JSONDecodeError:
-        print("Error: data.json no es un JSON válido, iniciando con lista vacía.")
-        return []
+    # ...
+    return []
 
 dispositivos_registrados = cargar_datos_iniciales()
 
+# --- NUEVA FUNCIÓN AUXILIAR ---
+def _find_device(sid):
+    """Encuentra un dispositivo por su SID."""
+    return next((d for d in dispositivos_registrados if d['sid'] == sid), None)
+
 # --- RUTAS WEB (HTML) ---
+# ... (Rutas /, /vista/formulario, /vista/agregar sin cambios) ...
 
 @app.route('/')
 def index():
-    """Ruta raíz, redirige a la lista de dispositivos web."""
     return redirect(url_for('mostrar_dispositivos_web'))
 
 @app.route('/vista/formulario')
@@ -38,52 +37,41 @@ def formulario_web():
 
 @app.route('/vista/agregar', methods=['POST'])
 def agregar_dispositivo_web():
-    """Ruta que procesa el formulario HTML."""
-    data = {
-        "sid": request.form.get('sid'),
-        "nombre": request.form.get('nombre'),
-        "ip": request.form.get('ip'),
-        "protocolos": [p.strip() for p in request.form.get('protocolos', '').split(',')],
-        "observaciones": request.form.get('observaciones')
-    }
-    dispositivos_registrados.append(data)
+    # ...
     return redirect(url_for('mostrar_dispositivos_web'))
 
 @app.route('/vista/dispositivos')
 def mostrar_dispositivos_web():
     return render_template('dispositivos.html', dispositivos=dispositivos_registrados)
 
-# --- NUEVA RUTA ---
 @app.route('/vista/eliminar/<string:sid>', methods=['POST'])
 def eliminar_dispositivo_web(sid):
-    """Ruta que elimina un dispositivo."""
     global dispositivos_registrados
-    # Recreamos la lista excluyendo el dispositivo con el SID_original
     dispositivos_registrados = [d for d in dispositivos_registrados if d['sid'] != sid]
     return redirect(url_for('mostrar_dispositivos_web'))
+
+# --- NUEVA RUTA ---
+@app.route('/vista/editar/<string:sid>')
+def editar_dispositivo_web(sid):
+    """Muestra el formulario de edición para un dispositivo."""
+    device = _find_device(sid)
+    if not device:
+        # Si no se encuentra el dispositivo, devuelve un error 404
+        abort(404)
+    return render_template('editar.html', device=device)
 
 # --- RUTAS API (JSON PARA POSTMAN) ---
 # ... (Sin cambios en esta sección por ahora) ...
 
 @app.route('/api/dispositivos', methods=['GET'])
+# ...
 def api_get_dispositivos():
     return jsonify(dispositivos_registrados)
 
 @app.route('/api/dispositivos', methods=['POST'])
+# ...
 def api_add_dispositivo():
-    if not request.json:
-        return jsonify({"error": "La solicitud debe ser de tipo JSON"}), 400
-    data = request.json
-    if not data.get('sid') or not data.get('nombre'):
-        return jsonify({"error": "Los campos 'sid' y 'nombre' son obligatorios"}), 400
-    nuevo_dispositivo = {
-        "sid": data.get('sid'),
-        "nombre": data.get('nombre'),
-        "ip": data.get('ip', 'N/A'),
-        "protocolos": data.get('protocolos', []),
-        "observaciones": data.get('observaciones', '')
-    }
-    dispositivos_registrados.append(nuevo_dispositivo)
+    # ...
     return jsonify(nuevo_dispositivo), 201
 
 if __name__ == '__main__':

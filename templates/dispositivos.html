@@ -1,11 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dispositivos de Red</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
 <body>
     <div class="container">
         <h1>Lista de Dispositivos</h1>
@@ -21,6 +13,7 @@
                 <p><b>Observaciones:</b> {{ d.observaciones }}</p>
                 
                 <div class="device-card-actions">
+                    <a href="{{ url_for('editar_dispositivo_web', sid=d.sid) }}" class="button-secondary">Editar</a>
                     <form action="{{ url_for('eliminar_dispositivo_web', sid=d.sid) }}" method="POST">
                         <input type="submit" value="Eliminar" class="button-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este dispositivo?');">
                     </form>
