@@ -8,11 +8,11 @@
 </head>
 <body>
     <div class="container">
-        <p><a href="{{ url_for('mostrar_dispositivos') }}">&larr; Volver a la lista</a></p>
+        <p><a href="{{ url_for('mostrar_dispositivos_web') }}">&larr; Volver a la lista</a></p>
 
         <h1>Nuevo Dispositivo</h1>
         
-        <form action="/agregar" method="GET">
+        <form action="{{ url_for('agregar_dispositivo_web') }}" method="POST">
             <p>
                 <label for="sid">SID:</label>
                 <input type="text" id="sid" name="sid">
