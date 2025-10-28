@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agregar Dispositivo</title>
+</head>
+<body>
+    <h1>Nuevo Dispositivo</h1>
+    <form action="/agregar" method="GET">
+        <p>
+            <label for="sid">SID:</label>
+            <input type="text" id="sid" name="sid">
+        </p>
+        <p>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre">
+        </p>
+        <p>
+            <label for="ip">IP:</label>
+            <input type="text" id="ip" name="ip">
+        </p>
+        <p>
+            <label for="protocolos">Protocolos (separados por coma):</label>
+            <input type="text" id="protocolos" name="protocolos">
+        </p>
+        <p>
+            <label for="observaciones">Observaciones:</label>
+            <input type="text" id="observaciones" name="observaciones">
+        </p>
+        <p>
+            <input type="submit" value="Registrar dispositivo">
+        </p>
+    </form>
+</body>
+</html>

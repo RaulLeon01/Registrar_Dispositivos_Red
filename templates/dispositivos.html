@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispositivos de Red</title>
+</head>
+<body>
+    <h1>Lista de Dispositivos</h1>
+    <p><a href="{{ url_for('formulario') }}">Agregar nuevo dispositivo</a></p>
+
+    {% for d in dispositivos %}
+    <div style="border:1px solid #ccc; padding:10px; margin:10px;">
+        <strong>{{ d.sid }}</strong><br>
+        <b>Nombre:</b> {{ d.nombre }}<br>
+        <b>IP:</b> {{ d.ip }}<br>
+        <b>Protocolos:</b> {{ d.protocolos | join(', ') }}<br>
+        <b>Observaciones:</b> {{ d.observaciones }}
+    </div>
+    {% else %}
+    <p>No hay dispositivos registrados.</p>
+    {% endfor %}
+</body>
+</html>
