@@ -101,3 +101,27 @@ form input[type="text"] {
 .device-card b {
     color: #444;
 }
+
+/* Estilos para botones de peligro (eliminar) */
+.button-danger {
+    background-color: #dc3545;
+    color: white;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+}
+.button-danger:hover {
+    background-color: #c82333;
+}
+
+/* Contenedor para los botones de acción en la tarjeta */
+.device-card-actions {
+    margin-top: 15px;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 15px;
+}

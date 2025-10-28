@@ -19,6 +19,12 @@
                 <p><b>IP:</b> {{ d.ip }}</p>
                 <p><b>Protocolos:</b> {{ d.protocolos | join(', ') }}</p>
                 <p><b>Observaciones:</b> {{ d.observaciones }}</p>
+                
+                <div class="device-card-actions">
+                    <form action="{{ url_for('eliminar_dispositivo_web', sid=d.sid) }}" method="POST">
+                        <input type="submit" value="Eliminar" class="button-danger" onclick="return confirm('¿Estás seguro de que deseas eliminar este dispositivo?');">
+                    </form>
+                </div>
             </article>
             {% else %}
             <p>No hay dispositivos registrados.</p>

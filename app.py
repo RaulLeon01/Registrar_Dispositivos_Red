@@ -36,10 +36,9 @@ def index():
 def formulario_web():
     return render_template('formulario.html')
 
-@app.route('/vista/agregar', methods=['POST']) # CAMBIADO a POST
+@app.route('/vista/agregar', methods=['POST'])
 def agregar_dispositivo_web():
     """Ruta que procesa el formulario HTML."""
-    # CAMBIADO a request.form para datos de formulario POST 
     data = {
         "sid": request.form.get('sid'),
         "nombre": request.form.get('nombre'),
@@ -48,40 +47,35 @@ def agregar_dispositivo_web():
         "observaciones": request.form.get('observaciones')
     }
     dispositivos_registrados.append(data)
-    # Redirige a la lista web
     return redirect(url_for('mostrar_dispositivos_web'))
 
-@app.route('/vista/dispositivos') # Ruta renombrada
+@app.route('/vista/dispositivos')
 def mostrar_dispositivos_web():
     return render_template('dispositivos.html', dispositivos=dispositivos_registrados)
 
+# --- NUEVA RUTA ---
+@app.route('/vista/eliminar/<string:sid>', methods=['POST'])
+def eliminar_dispositivo_web(sid):
+    """Ruta que elimina un dispositivo."""
+    global dispositivos_registrados
+    # Recreamos la lista excluyendo el dispositivo con el SID_original
+    dispositivos_registrados = [d for d in dispositivos_registrados if d['sid'] != sid]
+    return redirect(url_for('mostrar_dispositivos_web'))
 
 # --- RUTAS API (JSON PARA POSTMAN) ---
+# ... (Sin cambios en esta sección por ahora) ...
 
 @app.route('/api/dispositivos', methods=['GET'])
 def api_get_dispositivos():
-    """
-    (PARA POSTMAN) Obtiene todos los dispositivos en formato JSON.
-    """
     return jsonify(dispositivos_registrados)
 
 @app.route('/api/dispositivos', methods=['POST'])
 def api_add_dispositivo():
-    """
-    (PARA POSTMAN) Agrega un nuevo dispositivo.
-    Espera recibir un cuerpo (body) en formato JSON.
-    """
-    # Para API, usamos request.json
     if not request.json:
         return jsonify({"error": "La solicitud debe ser de tipo JSON"}), 400
-
     data = request.json
-    
-    # Validación simple
     if not data.get('sid') or not data.get('nombre'):
         return jsonify({"error": "Los campos 'sid' y 'nombre' son obligatorios"}), 400
-    
-    # Aseguramos la estructura de datos
     nuevo_dispositivo = {
         "sid": data.get('sid'),
         "nombre": data.get('nombre'),
@@ -89,12 +83,8 @@ def api_add_dispositivo():
         "protocolos": data.get('protocolos', []),
         "observaciones": data.get('observaciones', '')
     }
-
     dispositivos_registrados.append(nuevo_dispositivo)
-    
-    # Devolvemos el objeto creado y un código 201 (Created)
     return jsonify(nuevo_dispositivo), 201
-
 
 if __name__ == '__main__':
     app.run(debug=True)
