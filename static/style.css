@@ -76,7 +76,7 @@ form input[type="text"] {
     margin-top: 20px;
 }
 
-/* Tarjeta de Dispositivo (reemplaza el div simple [cite: 6]) */
+/* Tarjeta de Dispositivo */
 .device-card {
     background: #ffffff;
     border: 1px solid #ddd;
@@ -119,15 +119,6 @@ form input[type="text"] {
     background-color: #c82333;
 }
 
-/* Contenedor para los botones de acción en la tarjeta */
-.device-card-actions {
-    margin-top: 15px;
-    border-top: 1px solid #f0f0f0;
-    padding-top: 15px;
-}
-
-/* ... (CSS anterior) ... */
-
 /* Estilos para botones secundarios (editar, resetear) */
 .button-secondary {
     background-color: #6c757d;
@@ -157,9 +148,9 @@ form input[readonly] {
     margin-top: 15px;
     border-top: 1px solid #f0f0f0;
     padding-top: 15px;
-    display: flex; /* Añadido */
-    gap: 10px; /* Añadido */
-    align-items: center; /* Añadido */
+    display: flex; 
+    gap: 10px; 
+    align-items: center; 
 }
 /* Hacemos que el formulario de eliminar no ocupe espacio extra */
 .device-card-actions form {
@@ -168,8 +159,6 @@ form input[readonly] {
     box-shadow: none;
     background: none;
 }
-
-/* ... (CSS anterior) ... */
 
 /* Contenedor para los botones globales (Agregar, Resetear) */
 .global-actions {
@@ -186,4 +175,3 @@ form input[readonly] {
     box-shadow: none;
     background: none;
 }
-
