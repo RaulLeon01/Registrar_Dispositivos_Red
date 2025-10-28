@@ -1,3 +1,11 @@
+# INSTALACIÓN DE FLASK:
+# 1. cd C:/Users/TuUsuario/Documents/Flask_
+# 2. python -m venv venv
+# 3. venv/Scripts/activate
+# 4. pip install flask
+# 5. pip show flask
+# 6. python app.py
+
 from flask import Flask, jsonify, render_template, request, redirect, url_for
 import json
 
