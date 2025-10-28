@@ -168,3 +168,22 @@ form input[readonly] {
     box-shadow: none;
     background: none;
 }
+
+/* ... (CSS anterior) ... */
+
+/* Contenedor para los botones globales (Agregar, Resetear) */
+.global-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+/* Hacemos que el formulario de reset no ocupe espacio extra */
+.global-actions form {
+    margin: 0;
+    padding: 0;
+    box-shadow: none;
+    background: none;
+}
+

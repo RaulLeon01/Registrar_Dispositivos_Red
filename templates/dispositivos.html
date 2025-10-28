@@ -1,7 +1,13 @@
 <body>
     <div class="container">
         <h1>Lista de Dispositivos</h1>
-        <p><a href="{{ url_for('formulario_web') }}" class="button">Agregar nuevo dispositivo</a></p>
+
+        <div class="global-actions">
+            <a href="{{ url_for('formulario_web') }}" class="button">Agregar nuevo dispositivo</a>
+            <form action="{{ url_for('resetear_datos_web') }}" method="POST">
+                <input type="submit" value="Recargar Datos (Reset)" class="button-secondary">
+            </form>
+        </div>
 
         <div class="device-container">
             {% for d in dispositivos %}
